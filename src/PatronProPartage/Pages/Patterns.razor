@@ -1,0 +1,23 @@
+@using PatronProPartage.Models
+@using System.Collections.Generic
+@using System.Linq
+@page "/patterns"
+@inject IPatronService PatronService
+
+<MudText Typo="Typo.h5">Patrons disponibles</MudText>
+
+<MudList>
+    @foreach (var pattern in _patterns)
+    {
+        <MudListItem>@pattern.Name</MudListItem>
+    }
+</MudList>
+
+@code {
+    private IEnumerable<Pattern> _patterns = Enumerable.Empty<Pattern>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _patterns = await PatronService.GetPublicPatternsAsync();
+    }
+}
