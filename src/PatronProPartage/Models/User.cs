@@ -1,4 +1,6 @@
+
 using System.Collections.Generic;
+
 namespace PatronProPartage.Models;
 
 public class User

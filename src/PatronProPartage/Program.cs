@@ -55,3 +55,7 @@ static async Task SeedRoles(IServiceProvider services)
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     await IdentityDataInitializer.SeedAsync(userManager, roleManager);
 }
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
+app.Run();
