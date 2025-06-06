@@ -20,6 +20,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddMudServices();
 builder.Services.AddSingleton<IPatronService, InMemoryPatronService>();
 builder.Services.AddSingleton<IUserService, InMemoryUserService>();
 builder.Services.AddSingleton<IFileStorageService, LocalFileStorageService>();
