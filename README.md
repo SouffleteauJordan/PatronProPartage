@@ -2,7 +2,6 @@
 
 Skeleton for the "PatronProPartage" Blazor Server project. This repository only contains a minimal set of files to provide an initial structure, as the full application requires tooling not available in this environment.
 
-The main goal is to set up the foundation for a future community platform for sharing sewing patterns. The stack is intended to be Blazor Server with MudBlazor components, using a local SQL Server database and file storage.
 
 ## Structure
 
