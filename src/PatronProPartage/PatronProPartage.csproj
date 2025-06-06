@@ -7,5 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="6.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.0" />
   </ItemGroup>
 </Project>
