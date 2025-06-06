@@ -1,0 +1,90 @@
+@page "/patternform"
+@inject IPatronService PatronService
+@using System
+
+<MudPaper Class="pa-4" Elevation="3">
+    <MudText Typo="Typo.h6">Ajouter un patron</MudText>
+    <EditForm Model="_pattern" OnValidSubmit="HandleValidSubmit">
+        <MudTextField @bind-Value="_pattern.Name" Label="Nom" Required="true" />
+        <MudTextField @bind-Value="_pattern.Description" Label="Description" Lines="3" />
+
+        <MudSelect T="string" Label="Catégories" MultiSelection="true" @bind-SelectedValues="_pattern.ClothingCategories">
+            @foreach (var item in ClothingOptions)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSelect T="string" Label="Techniques" MultiSelection="true" @bind-SelectedValues="_pattern.Techniques">
+            @foreach (var item in TechniqueOptions)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSelect T="string" Label="Tailles" MultiSelection="true" @bind-SelectedValues="_pattern.Sizes">
+            @foreach (var item in SizeOptions)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSelect T="string" Label="Saisons" MultiSelection="true" @bind-SelectedValues="_pattern.Seasons">
+            @foreach (var item in SeasonOptions)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSelect T="string" Label="Styles" MultiSelection="true" @bind-SelectedValues="_pattern.Styles">
+            @foreach (var item in StyleOptions)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+
+        <InputFile OnChange="FilesSelected" Multiple="true" />
+        <MudTextField @bind-Value="_pattern.Video" Label="Vidéo YouTube" />
+
+        @if (_imagePreview != null)
+        {
+            <img src="@_imagePreview" style="max-width:200px" />
+        }
+
+        <MudButton Color="Color.Primary" Type="Submit">Enregistrer</MudButton>
+    </EditForm>
+</MudPaper>
+
+@code {
+    private Pattern _pattern = new();
+    private string? _imagePreview;
+
+    private static readonly string[] ClothingOptions = { "Jupe", "Haut", "Pantalon", "Robe" };
+    private static readonly string[] TechniqueOptions = { "Plis", "Couture anglaise", "Surjet" };
+    private static readonly string[] SizeOptions = { "XS", "S", "M", "L", "XL", "XXL" };
+    private static readonly string[] SeasonOptions = { "Été", "Hiver", "Printemps", "Automne" };
+    private static readonly string[] StyleOptions = { "Chic", "Sobre", "Street" };
+
+    private async Task FilesSelected(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles())
+        {
+            _pattern.Files.Add(file.Name);
+            if (file.ContentType.StartsWith("image/") && _imagePreview == null)
+            {
+                var buffer = new byte[file.Size];
+                await file.OpenReadStream().ReadAsync(buffer);
+                _imagePreview = $"data:{file.ContentType};base64,{Convert.ToBase64String(buffer)}";
+            }
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        _pattern.CreatedAt = DateTime.UtcNow;
+        _pattern.UpdatedAt = DateTime.UtcNow;
+        await PatronService.AddAsync(_pattern);
+        _pattern = new();
+        _imagePreview = null;
+    }
+}

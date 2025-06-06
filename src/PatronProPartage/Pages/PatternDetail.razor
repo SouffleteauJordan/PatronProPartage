@@ -1,0 +1,35 @@
+@page "/pattern/{id:int}"
+@inject IPatronService PatronService
+
+@if (_pattern == null)
+{
+    <MudText>Patron introuvable.</MudText>
+}
+else
+{
+    <MudPaper Class="pa-4" Elevation="2">
+        <MudText Typo="Typo.h5">@_pattern.Name</MudText>
+        <MudText Typo="Typo.subtitle2">@_pattern.Description</MudText>
+        <MudDivider Class="my-2" />
+        <MudChipSet>
+            @foreach (var cat in _pattern.ClothingCategories)
+            {
+                <MudChip>@cat</MudChip>
+            }
+        </MudChipSet>
+        <MudText Typo="Typo.caption" Class="mt-2">Tailles: @string.Join(", ", _pattern.Sizes)</MudText>
+        <MudText Typo="Typo.caption">Saisons: @string.Join(", ", _pattern.Seasons)</MudText>
+    </MudPaper>
+}
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Pattern? _pattern;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _pattern = await PatronService.GetByIdAsync(id);
+    }
+}
