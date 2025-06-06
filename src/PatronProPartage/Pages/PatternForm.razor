@@ -1,0 +1,21 @@
+@page "/upload"
+@inject IPatronService PatronService
+
+<MudPaper Class="pa-4" Elevation="3">
+    <MudText Typo="Typo.h6">Ajouter un patron</MudText>
+    <EditForm Model="_pattern" OnValidSubmit="HandleValidSubmit">
+        <MudTextField @bind-Value="_pattern.Name" Label="Nom" Required="true" />
+        <MudTextField @bind-Value="_pattern.Description" Label="Description" />
+        <MudButton Color="Color.Primary" Type="Submit">Enregistrer</MudButton>
+    </EditForm>
+</MudPaper>
+
+@code {
+    private Pattern _pattern = new();
+
+    private async Task HandleValidSubmit()
+    {
+        await PatronService.AddAsync(_pattern);
+        _pattern = new();
+    }
+}
