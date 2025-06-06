@@ -18,6 +18,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _patterns = await PatronService.GetPublicPatternsAsync();
+        _patterns = await PatronService.GetAllAsync();
     }
 }
