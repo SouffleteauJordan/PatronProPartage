@@ -9,7 +9,7 @@ The main goal is to set up the foundation for a future community platform for sh
 - `src/PatronProPartage` — Minimal Blazor Server project skeleton.
 - `src/PatronProPartage/Models` — Data models.
 - `src/PatronProPartage/Services` — Service interfaces and stubs.
-- `src/PatronProPartage/Pages` — Razor components/pages.
+- `src/PatronProPartage/Pages` — Razor components/pages. Includes basic forms and a pattern details view.
 - `src/PatronProPartage/Shared` — Shared layout components.
 
 This code does **not** build or run in this environment because the .NET SDK is missing. However, it provides an outline of the intended architecture.

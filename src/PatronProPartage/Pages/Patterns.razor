@@ -9,7 +9,9 @@
 <MudList>
     @foreach (var pattern in _patterns)
     {
-        <MudListItem>@pattern.Name</MudListItem>
+        <MudListItem>
+            <MudLink Href=$"/pattern/{pattern.Id}">@pattern.Name</MudLink>
+        </MudListItem>
     }
 </MudList>
 

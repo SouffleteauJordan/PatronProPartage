@@ -24,7 +24,6 @@ builder.Services.AddMudServices();
 builder.Services.AddSingleton<IPatronService, InMemoryPatronService>();
 builder.Services.AddSingleton<IUserService, InMemoryUserService>();
 builder.Services.AddSingleton<IFileStorageService, LocalFileStorageService>();
-// MudBlazor services would be added here
 
 var app = builder.Build();
 
